@@ -27,7 +27,6 @@ run:
 	go run cmd/webping/main.go $(ARGS)
 
 test: lint
-	@go test -cover .
 
 #
 # Release

@@ -14,8 +14,7 @@ type Targetter interface {
 // WebTarget implements Targetter for Web
 type WebTarget struct {
 	HTTPS   bool
-	Code    string
-	Service string
+	Host    string
 	Rnd     string
 }
 
@@ -23,15 +22,15 @@ type WebTarget struct {
 func (r *WebTarget) GetURL() string {
 	proto := "http"
 	if r.HTTPS {
-		proto = "https"
+		//proto = "https"
+		fmt.Printf("HTTPS not supported, using http\n")
 	}
-	hostname := fmt.Sprintf("%s.%s.amazonweb.com", r.Service, r.Code)
-	url := fmt.Sprintf("%s://%s/ping?x=%s", proto, hostname, r.Rnd)
+	url := fmt.Sprintf("%s://%s/ping?x=%s", proto, r.Host, r.Rnd)
 	return url
 }
 
 // GetIP return IP for Web target
 func (r *WebTarget) GetIP() (*net.TCPAddr, error) {
-	tcpURI := fmt.Sprintf("%s.%s.amazonweb.com:80", r.Service, r.Code)
+	tcpURI := fmt.Sprintf("%s:80", r.Host)
 	return net.ResolveTCPAddr("tcp4", tcpURI)
 }

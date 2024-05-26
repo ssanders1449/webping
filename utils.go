@@ -58,7 +58,7 @@ func NewOutput(level, repeats int) *LatencyOutput {
 
 func (lo *LatencyOutput) show(regions *WebRegions) {
 	for _, r := range *regions {
-		fmt.Fprintf(lo.w, "%-15s %-s\n", r.Code, r.Name)
+		fmt.Fprintf(lo.w, "%-15s %-s\n", r.Host, r.Name)
 	}
 }
 
@@ -70,9 +70,9 @@ func (lo *LatencyOutput) show0(regions *WebRegions) {
 
 func (lo *LatencyOutput) show1(regions *WebRegions) {
 	outFmt := "%5v %-15s %-30s %20s\n"
-	fmt.Fprintf(lo.w, outFmt, "", "Code", "Region", "Latency")
+	fmt.Fprintf(lo.w, outFmt, "", "Host", "Region", "Latency")
 	for i, r := range *regions {
-		fmt.Fprintf(lo.w, outFmt, i, r.Code, r.Name, r.GetLatencyStr())
+		fmt.Fprintf(lo.w, outFmt, i, r.Host, r.Name, r.GetLatencyStr())
 	}
 }
 
@@ -81,7 +81,7 @@ func (lo *LatencyOutput) show2(regions *WebRegions) {
 	outFmt := "%5v %-15s %-25s"
 	outFmt += strings.Repeat(" %15s", lo.Repeats) + " %15s\n"
 	// header
-	outStr := []interface{}{"", "Code", "Region"}
+	outStr := []interface{}{"", "Host", "Region"}
 	for i := 0; i < lo.Repeats; i++ {
 		outStr = append(outStr, "Try #"+strconv.Itoa(i+1))
 	}
@@ -92,7 +92,7 @@ func (lo *LatencyOutput) show2(regions *WebRegions) {
 
 	// each region stats
 	for i, r := range *regions {
-		outData := []interface{}{strconv.Itoa(i), r.Code, r.Name}
+		outData := []interface{}{strconv.Itoa(i), r.Host, r.Name}
 		for n := 0; n < lo.Repeats; n++ {
 			outData = append(outData, fmt.Sprintf("%.2f ms",
 				Duration2ms(r.Latencies[n])))
@@ -119,40 +119,12 @@ func (lo *LatencyOutput) Show(regions *WebRegions) {
 // GetRegions returns a list of regions
 func GetRegions() WebRegions {
 	return WebRegions{
-		NewRegion("Africa (Cape Town)", "af-south-1"),
-		NewRegion("Asia Pacific (Hong Kong)", "ap-east-1"),
-		NewRegion("Asia Pacific (Tokyo)", "ap-northeast-1"),
-		NewRegion("Asia Pacific (Seoul)", "ap-northeast-2"),
-		NewRegion("Asia Pacific (Osaka)", "ap-northeast-3"),
-		NewRegion("Asia Pacific (Mumbai)", "ap-south-1"),
-		NewRegion("Asia Pacific (Hyderabad)", "ap-south-2"),
-		NewRegion("Asia Pacific (Singapore)", "ap-southeast-1"),
-		NewRegion("Asia Pacific (Sydney)", "ap-southeast-2"),
-		NewRegion("Asia Pacific (Jakarta)", "ap-southeast-3"),
-		NewRegion("Asia Pacific (Melbourne)", "ap-southeast-4"),
-		NewRegion("Canada (Central)", "ca-central-1"),
-		NewRegion("Europe (Frankfurt)", "eu-central-1"),
-		NewRegion("Europe (Zurich)", "eu-central-2"),
-		NewRegion("Europe (Stockholm)", "eu-north-1"),
-		NewRegion("Europe (Milan)", "eu-south-1"),
-		NewRegion("Europe (Spain)", "eu-south-2"),
-		NewRegion("Europe (Ireland)", "eu-west-1"),
-		NewRegion("Europe (London)", "eu-west-2"),
-		NewRegion("Europe (Paris)", "eu-west-3"),
-		NewRegion("Middle East (UAE)", "me-central-1"),
-		NewRegion("Middle East (Bahrain)", "me-south-1"),
-		NewRegion("South America (Sao Paulo)", "sa-east-1"),
-		NewRegion("US East (N. Virginia)", "us-east-1"),
-		NewRegion("US East (Ohio)", "us-east-2"),
-		NewRegion("US West (N. California)", "us-west-1"),
-		NewRegion("US West (Oregon)", "us-west-2"),
-		NewRegion("Israel (Tel Aviv)", "il-central-1"),
+		NewRegion("gcp Qatar", "gcp-qatar.latency.dev.streaming.synamedia.com"),
 	}
 }
 
 // CalcLatency returns list of web regions sorted by Latency
-func CalcLatency(regions WebRegions, repeats int, useHTTP bool, useHTTPS bool, service string) {
-	regions.SetService(service)
+func CalcLatency(regions WebRegions, repeats int, useHTTP bool, useHTTPS bool) {
 	switch {
 	case useHTTP:
 		regions.SetCheckType(CheckTypeHTTP)
