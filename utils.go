@@ -16,7 +16,7 @@ var (
 	// Version describes application version
 	Version   = "2.0.0"
 	github    = "https://github.com/ssanders1449/webping"
-	useragent = fmt.Sprintf("AwsPing/%s (+%s)", Version, github)
+	useragent = fmt.Sprintf("WebPing/%s (+%s)", Version, github)
 )
 
 const (
@@ -58,18 +58,18 @@ func NewOutput(level, repeats int) *LatencyOutput {
 
 func (lo *LatencyOutput) show(regions *WebRegions) {
 	for _, r := range *regions {
-		fmt.Fprintf(lo.w, "%-15s %-s\n", r.Host, r.Name)
+		fmt.Fprintf(lo.w, "%-18s %-s\n", r.Host, r.Name)
 	}
 }
 
 func (lo *LatencyOutput) show0(regions *WebRegions) {
 	for _, r := range *regions {
-		fmt.Fprintf(lo.w, "%-25s %20s\n", r.Name, r.GetLatencyStr())
+		fmt.Fprintf(lo.w, "%-28s %20s\n", r.Name, r.GetLatencyStr())
 	}
 }
 
 func (lo *LatencyOutput) show1(regions *WebRegions) {
-	outFmt := "%5v %-15s %-30s %20s\n"
+	outFmt := "%5v %-18s %-30s %20s\n"
 	fmt.Fprintf(lo.w, outFmt, "", "Host", "Region", "Latency")
 	for i, r := range *regions {
 		fmt.Fprintf(lo.w, outFmt, i, r.Host, r.Name, r.GetLatencyStr())
@@ -78,7 +78,7 @@ func (lo *LatencyOutput) show1(regions *WebRegions) {
 
 func (lo *LatencyOutput) show2(regions *WebRegions) {
 	// format
-	outFmt := "%5v %-15s %-25s"
+	outFmt := "%5v %-15s %-28s"
 	outFmt += strings.Repeat(" %15s", lo.Repeats) + " %15s\n"
 	// header
 	outStr := []interface{}{"", "Host", "Region"}
@@ -119,7 +119,19 @@ func (lo *LatencyOutput) Show(regions *WebRegions) {
 // GetRegions returns a list of regions
 func GetRegions() WebRegions {
 	return WebRegions{
-		NewRegion("gcp Qatar", "gcp-qatar.latency.dev.streaming.synamedia.com"),
+		NewRegion("asia-south1 (Mumbai)", "latency-as1"),
+		NewRegion("asia-south2 (Delhi)", "latency-as2"),
+		NewRegion("europe-north1 (Finland)", "latency-en1"),
+		NewRegion("europe-southwest1 (Madrid)", "latency-esw1"),
+		NewRegion("europe-west1 (Belgium)", "latency-ew1"),
+		NewRegion("europe-west2 (London)", "latency-ew2"),
+		NewRegion("europe-west3 (Frankfurt)", "latency-ew3"),
+		NewRegion("europe-west4 (Netherlands)", "latency-ew4"),
+		NewRegion("europe-west8 (Milan)", "latency-ew8"),
+		NewRegion("europe-west9 (Paris)", "latency-ew9"),
+		NewRegion("me-central1 (Qatar)", "latency-mc1"),
+		NewRegion("me-central2 (Dammam)", "latency-mc2"),
+		NewRegion("me-west1 (Tel Aviv)", "latency-mw1"),
 	}
 }
 
