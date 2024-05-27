@@ -124,6 +124,7 @@ func GetRegions() WebRegions {
 		NewRegion("europe-north1 (Finland)", "latency-en1"),
 		NewRegion("europe-southwest1 (Madrid)", "latency-esw1"),
 		NewRegion("europe-west1 (Belgium)", "latency-ew1"),
+		NewRegion("Belgium (standard network)", "latency-ew1-standard"),
 		NewRegion("europe-west2 (London)", "latency-ew2"),
 		NewRegion("europe-west3 (Frankfurt)", "latency-ew3"),
 		NewRegion("europe-west4 (Netherlands)", "latency-ew4"),
