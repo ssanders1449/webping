@@ -120,18 +120,12 @@ func (lo *LatencyOutput) Show(regions *WebRegions) {
 func GetRegions() WebRegions {
 	return WebRegions{
 		NewRegion("asia-south1 (Mumbai)", "latency-as1"),
-		NewRegion("asia-south2 (Delhi)", "latency-as2"),
-		NewRegion("europe-north1 (Finland)", "latency-en1"),
-		NewRegion("europe-southwest1 (Madrid)", "latency-esw1"),
 		NewRegion("europe-west1 (Belgium)", "latency-ew1"),
 		NewRegion("Belgium (standard network)", "latency-ew1-standard"),
 		NewRegion("europe-west2 (London)", "latency-ew2"),
 		NewRegion("europe-west3 (Frankfurt)", "latency-ew3"),
 		NewRegion("europe-west4 (Netherlands)", "latency-ew4"),
-		NewRegion("europe-west8 (Milan)", "latency-ew8"),
-		NewRegion("europe-west9 (Paris)", "latency-ew9"),
 		NewRegion("me-central1 (Qatar)", "latency-mc1"),
-		NewRegion("me-central2 (Dammam)", "latency-mc2"),
 		NewRegion("me-west1 (Tel Aviv)", "latency-mw1"),
 	}
 }
